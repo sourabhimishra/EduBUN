@@ -41,7 +41,3 @@ SpeechRecognition
 gTTS (Google Text-to-Speech)
 
 EduBUN aims to evolve into a scalable AI mentor platform that supports adaptive learning, performance analytics, and institutional deployment.
-
-🏆 Hackathon-ready README version
-
-🎨 README with badges and formatting enhancements
