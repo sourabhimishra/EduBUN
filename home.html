@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDUBUN</title>
+    <style>
+        /* --- CSS STYLING --- */
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(0, 212, 255, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(8, 145, 178, 0.1) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: white;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar Styling */
+        aside {
+            width: 280px;
+            background: #050505;
+            border-right: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sidebar-header {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #00d4ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rag-info {
+            background: rgba(0, 212, 255, 0.05);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: #94a3b8;
+        }
+
+        #app-container {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .page {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hidden { display: none !important; }
+
+        .glass-box {
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 30px;
+            padding: 50px;
+            width: 550px;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 1);
+        }
+
+        .edubun-title {
+            font-size: 5rem;
+            margin: 0;
+            font-weight: 900;
+            background: linear-gradient(to right, #ffffff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(0, 212, 255, 0.4));
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            color: #00d4ff;
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .button-row button { flex: 1; }
+
+        /* Unified Button Style for both Initialize and Logout */
+        button {
+            background: transparent;
+            color: #00d4ff;
+            border: 2px solid #00d4ff;
+            border-radius: 12px;
+            padding: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background: #00d4ff;
+            color: black;
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.5);
+        }
+
+        .google-btn {
+            border-color: #ffffff;
+            color: #ffffff;
+            margin-top: 15px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .google-btn:hover {
+            background: white;
+            color: black;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 14px;
+            border-radius: 10px;
+            color: white;
+            margin-bottom: 20px;
+            outline: none;
+        }
+
+        /* Dropdown Styling - Competitive Blue for all items */
+        select {
+            width: 100%;
+            background-color: #0a0a0a !important;
+            border: 1px solid rgba(0, 212, 255, 0.4);
+            padding: 14px;
+            border-radius: 10px;
+            color: #00d4ff; /* All selected text is blue */
+            font-weight: bold;
+            margin-bottom: 20px;
+            outline: none;
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="%2300d4ff"><path d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+        }
+
+        option {
+            background-color: #000000;
+            color: #00d4ff; /* All options in dropdown are now blue */
+        }
+
+        .chat-input {
+            margin-top: 25px;
+            border: 1px solid #00d4ff;
+        }
+
+        .status-msg {
+            color: #23d5ab;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <aside id="sidebar" class="hidden">
+        <div class="sidebar-header"><span>🧬</span> EDUBUN Core</div>
+        <div class="rag-info">The system uses <strong>RAG</strong> to ensure context-aware, hallucination-free answers.</div>
+    </aside>
+
+    <main id="app-container">
+        <section id="page-1" class="page">
+            <div class="glass-box">
+                <h1 class="edubun-title">EDUBUN</h1>
+                <p class="subtitle">Syllabus Intelligence Engine</p>
+                <div class="button-row">
+                    <button onclick="nav(2)">Sign In</button>
+                    <button onclick="nav(3)">Sign Up</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="page-2" class="page hidden">
+            <div class="glass-box">
+                <h2>Neural Access</h2>
+                <input type="email" placeholder="Email Address">
+                <input type="password" placeholder="Passkey">
+                <button style="width:100%" onclick="nav(4)">Authenticate</button>
+                <button class="google-btn" onclick="nav(4)">
+                    <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" width="18"> Continue with Google
+                </button>
+                <button style="width:100%; margin-top:15px; border-color: #475569; color: #475569;" onclick="nav(1)">← Back</button>
+            </div>
+        </section>
+
+        <section id="page-4" class="page hidden">
+            <div class="glass-box">
+                <h2>Syllabus Alignment</h2>
+                <p style="color: #94a3b8;">Select your objective to ground the AI context.</p>
+                <select id="course-select">
+                    <option>Competitive Exams (JEE/NEET)</option>
+                    <option>UPSC Intelligence</option>
+                    <option>Computer Science / Coding</option>
+                    <option>Medical Board Exams</option>
+                </select>
+                
+                <div class="button-row">
+                    <button id="sync-btn" onclick="simulateSync()">Initialize Sync</button>
+                    <button id="logout-btn" onclick="logout()">Logout</button>
+                </div>
+
+                <div id="sync-status" class="hidden">
+                    <div class="status-msg">● Context Synchronized</div>
+                    <input type="text" class="chat-input" placeholder="Ask a doubt regarding your syllabus...">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function nav(pageNumber) {
+            document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+            document.getElementById(`page-${pageNumber}`).classList.remove('hidden');
+            const sidebar = document.getElementById('sidebar');
+            pageNumber === 4 ? sidebar.classList.remove('hidden') : sidebar.classList.add('hidden');
+        }
+
+        function simulateSync() {
+            const btn = document.getElementById('sync-btn');
+            btn.innerText = "Syncing...";
+            btn.disabled = true;
+            setTimeout(() => {
+                btn.innerText = "Sync Complete";
+                document.getElementById('sync-status').classList.remove('hidden');
+                btn.style.borderColor = "#23d5ab";
+                btn.style.color = "#23d5ab";
+            }, 1500);
+        }
+
+        function logout() {
+            const btn = document.getElementById('sync-btn');
+            btn.innerText = "Initialize Sync";
+            btn.disabled = false;
+            btn.style.borderColor = "#00d4ff";
+            btn.style.color = "#00d4ff";
+            document.getElementById('sync-status').classList.add('hidden');
+            nav(1);
+        }
+    </script>
+</body>
+</html>
