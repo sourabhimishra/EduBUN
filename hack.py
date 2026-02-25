@@ -18,7 +18,7 @@ from langchain_core.prompts import ChatPromptTemplate
 st.set_page_config(page_title="EduBUN | AI Learning Platform", layout="wide", page_icon="🎓")
 
 # ---------------- API ----------------
-GROQ_KEY = "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"
+GROQ_KEY = "Enter your API"
 os.environ["GROQ_API_KEY"] = GROQ_KEY
 
 # ---------------- 2. INTEGRATED CSS ----------------
@@ -388,4 +388,5 @@ elif st.session_state.page == 5:
                         st.markdown(response.content)
                         st.session_state.messages.append({"role": "assistant", "content": response.content})
                         speak_text(response.content)
+
                     st.rerun()
